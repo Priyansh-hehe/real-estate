@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ReactNode } from "react";
+import SignOutSidebarButton from "@/components/SignOutSidebarButton";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -33,6 +34,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
             <Link href="/" className="px-4 py-2 rounded-md text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors block">
               View Live Site
             </Link>
+            <SignOutSidebarButton />
           </div>
         </nav>
       </aside>

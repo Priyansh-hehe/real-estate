@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+import UserMenu from "./UserMenu";
+
 export default async function Header() {
   const session = await getServerSession(authOptions);
 
@@ -24,17 +26,7 @@ export default async function Header() {
             >
               Dashboard
             </Link>
-            {session.user?.image ? (
-              <img 
-                src={session.user.image} 
-                alt={session.user.name || "User Avatar"} 
-                className="w-10 h-10 rounded-full border-2 border-blue-500 shadow-sm"
-              />
-            ) : (
-              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
-                {session.user?.name?.charAt(0) || "A"}
-              </div>
-            )}
+            <UserMenu session={session} />
           </div>
         ) : (
           <Link 

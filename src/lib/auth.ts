@@ -29,6 +29,14 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
+    async signIn({ user }) {
+      // 🛑 The Admin Whitelist Check
+      const allowedEmails = process.env.ADMIN_EMAILS?.split(',') || [];
+      if (user.email && allowedEmails.includes(user.email)) {
+        return true; // Let them in
+      }
+      return false; // Block the login
+    },
     async jwt({ token, user }) {
       if (user) {
         token.sub = user.id;

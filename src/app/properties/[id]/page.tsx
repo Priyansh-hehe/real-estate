@@ -7,9 +7,11 @@ import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import MapLoader from "@/components/MapLoader";
 
-export default async function PropertyDetailsPage({ params }: { params: { id: string } }) {
+export default async function PropertyDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  
   const property = await prisma.property.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!property) {
