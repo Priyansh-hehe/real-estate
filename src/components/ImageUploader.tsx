@@ -3,12 +3,7 @@
 import { useState, useCallback } from "react";
 import { UploadCloud, X, Loader2, Image as ImageIcon } from "lucide-react";
 import imageCompression from "browser-image-compression";
-import { createClient } from "@supabase/supabase-js";
-
-// Initialize Supabase Client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { uploadImageAction } from "@/app/actions/upload";
 
 interface ImageUploaderProps {
   onUploadComplete: (urls: string[]) => void;
@@ -69,38 +64,21 @@ export default function ImageUploader({ onUploadComplete, maxFiles = 5, initialU
 
     try {
       for (const file of imageFiles) {
-        // 1. Compress the image
+        // 1. Compress the image in the browser to save bandwidth
         const options = {
-          maxSizeMB: 0.3, // Compress to max 300KB
+          maxSizeMB: 0.3,
           maxWidthOrHeight: 1920,
           useWebWorker: true,
         };
         
         const compressedFile = await imageCompression(file, options);
         
-        // 2. Upload to Supabase Storage
-        const fileExt = file.name.split('.').pop() || 'jpg';
-        const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
-        const filePath = `${fileName}`; // inside 'properties' bucket
-        
-        const { error: uploadError } = await supabase.storage
-          .from('properties')
-          .upload(filePath, compressedFile, {
-            cacheControl: '3600',
-            upsert: false
-          });
+        // 2. Send the compressed file to our Next.js Server Action
+        const formData = new FormData();
+        formData.append("file", compressedFile);
 
-        if (uploadError) {
-          console.error("Supabase Upload Error:", uploadError);
-          throw new Error("Failed to upload image. Make sure your bucket is named 'properties'.");
-        }
-
-        // 3. Get Public URL
-        const { data } = supabase.storage
-          .from('properties')
-          .getPublicUrl(filePath);
-
-        newUrls.push(data.publicUrl);
+        const publicUrl = await uploadImageAction(formData);
+        newUrls.push(publicUrl);
       }
 
       const allUrls = [...uploadedUrls, ...newUrls];
