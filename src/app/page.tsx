@@ -2,11 +2,21 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";
 
-export default async function Home() {
-  // Fetch the latest 6 properties from the database
+export default async function Home({ searchParams }: { searchParams: { q?: string } }) {
+  // Await searchParams (Required in Next.js 15+)
+  const params = await searchParams;
+  const query = params?.q || "";
+
+  // Fetch properties from the database, applying a search filter if a query exists
   const properties = await prisma.property.findMany({
+    where: query ? {
+      OR: [
+        { title: { contains: query, mode: 'insensitive' } },
+        { address: { contains: query, mode: 'insensitive' } },
+      ]
+    } : {},
     orderBy: { createdAt: 'desc' },
-    take: 6,
+    take: 12,
   });
 
   const formatPrice = (price: number) => {
@@ -30,17 +40,19 @@ export default async function Home() {
           Discover premium land plots, luxury buildings, and commercial real estate with our exclusive platform.
         </p>
 
-        {/* Search Bar Mockup */}
-        <div className="flex w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-full shadow-lg border border-zinc-200 dark:border-zinc-800 p-2 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        {/* Real Search Bar */}
+        <form action="/" method="GET" className="flex w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-full shadow-lg border border-zinc-200 dark:border-zinc-800 p-2 overflow-hidden hover:shadow-xl transition-shadow duration-300">
           <input 
             type="text" 
+            name="q"
+            defaultValue={query}
             placeholder="Search by city, neighborhood, or address..." 
             className="flex-1 bg-transparent px-6 text-sm focus:outline-none dark:text-white"
           />
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-sm font-semibold transition-colors duration-300">
+          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-sm font-semibold transition-colors duration-300">
             Search
           </button>
-        </div>
+        </form>
       </main>
 
       {/* Dynamic Properties Section */}
