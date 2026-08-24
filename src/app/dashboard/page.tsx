@@ -52,7 +52,7 @@ export default async function DashboardPage() {
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-lg truncate pr-4">{property.title}</h3>
                   <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
-                    ${property.price.toLocaleString()}
+                    {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(property.price)}
                   </span>
                 </div>
                 <p className="text-zinc-500 text-sm mb-4 line-clamp-2">{property.description}</p>

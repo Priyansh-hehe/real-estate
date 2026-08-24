@@ -1,18 +1,25 @@
 import Link from "next/link";
+import Header from "@/components/Header";
+import { prisma } from "@/lib/prisma";
 
-export default function Home() {
+export default async function Home() {
+  // Fetch the latest 6 properties from the database
+  const properties = await prisma.property.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 6,
+  });
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(price);
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans">
-      {/* Navigation Bar */}
-      <nav className="w-full flex items-center justify-between p-6 border-b border-zinc-200 dark:border-zinc-800">
-        <div className="text-2xl font-bold tracking-tighter">
-          Paliwal Properties<span className="text-blue-600">.</span>
-        </div>
-        <div className="flex gap-4">
-          <Link href="/properties" className="text-sm font-medium hover:text-blue-600 transition-colors">Properties</Link>
-          <Link href="/login" className="text-sm font-medium hover:text-blue-600 transition-colors bg-black dark:bg-white dark:text-black text-white px-4 py-2 rounded-full">Sign In</Link>
-        </div>
-      </nav>
+      <Header />
 
       {/* Hero Section */}
       <main className="flex flex-col items-center justify-center pt-32 pb-20 px-6 text-center">
@@ -36,29 +43,40 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Featured Properties Mockup */}
+      {/* Dynamic Properties Section */}
       <section className="max-w-6xl mx-auto px-6 py-20">
         <h2 className="text-2xl font-bold mb-8">Featured Listings</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="group flex flex-col bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 transition-colors duration-300 shadow-sm hover:shadow-md">
-              <div className="h-48 bg-zinc-200 dark:bg-zinc-800 w-full relative overflow-hidden flex items-center justify-center">
-                <span className="text-zinc-400 text-sm">Property Image</span>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
-                <div className="absolute bottom-4 left-4 z-20 text-white font-bold text-lg">$1,250,000</div>
-              </div>
-              <div className="p-5">
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">Luxury Villa {i}</h3>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">123 Example Street, City</p>
-                <div className="flex gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-300">
-                  <span>4 Beds</span>
-                  <span>3 Baths</span>
-                  <span>2,500 sqft</span>
+        
+        {properties.length === 0 ? (
+          <div className="text-center py-20 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+            <h3 className="text-xl font-semibold mb-2">No properties listed yet</h3>
+            <p className="text-zinc-500">Check back soon for premium real estate listings.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {properties.map((property) => (
+              <Link href={`/properties/${property.id}`} key={property.id} className="group flex flex-col bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer">
+                <div className="h-48 bg-zinc-200 dark:bg-zinc-800 w-full relative overflow-hidden flex items-center justify-center">
+                  {property.images && property.images.length > 0 ? (
+                    <img src={property.images[0]} alt={property.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  ) : (
+                    <span className="text-zinc-400 text-sm">No Image</span>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
+                  <div className="absolute bottom-4 left-4 z-20 text-white font-bold text-lg">{formatPrice(property.price)}</div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                <div className="p-5">
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">{property.title}</h3>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-1">{property.address || 'Address not specified'}</p>
+                  <div className="flex gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-300">
+                    <span className="bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded-md">{property.propertyType}</span>
+                    <span className="bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded-md">{property.size} sqft</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

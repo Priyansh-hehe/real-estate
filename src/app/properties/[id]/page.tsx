@@ -4,11 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-// Dynamically import the map to avoid SSR issues with Leaflet
-const PropertyMap = dynamic(() => import("@/components/PropertyMap"), { 
-  ssr: false,
-  loading: () => <div className="h-[400px] w-full rounded-2xl bg-zinc-100 dark:bg-zinc-900 animate-pulse flex items-center justify-center text-zinc-500">Loading Map...</div>
-});
+import Header from "@/components/Header";
+import MapLoader from "@/components/MapLoader";
 
 export default async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const property = await prisma.property.findUnique({
@@ -29,19 +26,7 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 pb-20">
-      {/* Navigation */}
-      <nav className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="text-xl font-bold tracking-tighter text-zinc-900 dark:text-white">
-              Paliwal Properties
-            </Link>
-            <Link href="/dashboard" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">
-              Admin
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Header section */}
@@ -99,7 +84,7 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
             {(property.latitude !== null && property.longitude !== null) && (
               <div className="bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
                 <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4 pl-2">Location</h3>
-                <PropertyMap latitude={property.latitude} longitude={property.longitude} />
+                <MapLoader latitude={property.latitude} longitude={property.longitude} />
                 {property.address && (
                   <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400 pl-2">{property.address}</p>
                 )}

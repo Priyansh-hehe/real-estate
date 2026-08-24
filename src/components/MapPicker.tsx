@@ -68,22 +68,29 @@ export default function MapPicker() {
       <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Location</label>
       
       {/* Search Bar */}
-      <form onSubmit={handleSearch} className="flex gap-2">
+      <div className="flex gap-2">
         <input 
           type="text" 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleSearch(e as any);
+            }
+          }}
           placeholder="Search for an area or city (e.g. Connaught Place)" 
           className="flex-1 bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg px-4 py-2 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button 
-          type="submit" 
+          type="button" 
+          onClick={handleSearch}
           disabled={isSearching}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50 transition-colors"
         >
           {isSearching ? "Searching..." : "Search"}
         </button>
-      </form>
+      </div>
 
       <div className="h-[350px] w-full rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 relative z-0">
         <MapContainer 
