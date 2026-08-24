@@ -25,9 +25,8 @@ export async function createProperty(formData: FormData) {
   const latitude = formData.get("latitude") ? parseFloat(formData.get("latitude") as string) : null;
   const longitude = formData.get("longitude") ? parseFloat(formData.get("longitude") as string) : null;
   
-  // Image URL (we will just take one for now)
-  const imageUrl = formData.get("image") as string;
-  const images = imageUrl ? [imageUrl] : [];
+  // Image URLs (can be multiple)
+  const images = formData.getAll("images") as string[];
 
   // 3. Save to PostgreSQL database
   await prisma.property.create({

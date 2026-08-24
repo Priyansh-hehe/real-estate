@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import ImageUploader from "@/components/ImageUploader";
 
 // Dynamically import the map so it only loads on the client side (prevents Next.js errors)
 const MapPicker = dynamic(() => import("@/components/MapPicker"), {
@@ -15,6 +16,7 @@ const MapPicker = dynamic(() => import("@/components/MapPicker"), {
 export default function AddPropertyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   const handleSubmit = async (formData: FormData) => {
     setLoading(true);
@@ -90,14 +92,13 @@ export default function AddPropertyPage() {
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">Main Image URL</label>
-            <input 
-              name="image" 
-              type="url" 
-              placeholder="https://imgur.com/..."
-              className="w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white" 
-            />
+          <div className="col-span-2">
+            <label className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300">Property Images</label>
+            <ImageUploader onUploadComplete={(urls) => setUploadedImages(urls)} maxFiles={5} />
+            {/* Hidden inputs to pass the uploaded image URLs to the server action */}
+            {uploadedImages.map((url, index) => (
+              <input key={index} type="hidden" name="images" value={url} />
+            ))}
           </div>
         </div>
 
