@@ -6,7 +6,7 @@ export default function Home() {
       {/* Navigation Bar */}
       <nav className="w-full flex items-center justify-between p-6 border-b border-zinc-200 dark:border-zinc-800">
         <div className="text-2xl font-bold tracking-tighter">
-          PrimeEstate<span className="text-blue-600">.</span>
+          Paliwal Properties<span className="text-blue-600">.</span>
         </div>
         <div className="flex gap-4">
           <Link href="/properties" className="text-sm font-medium hover:text-blue-600 transition-colors">Properties</Link>

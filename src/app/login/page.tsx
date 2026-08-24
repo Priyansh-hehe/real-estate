@@ -49,7 +49,7 @@ export default function LoginPage() {
         </button>
 
         <p className="mt-8 text-xs text-zinc-400 dark:text-zinc-500">
-          This secure area is strictly for PrimeEstate administrators.
+          This secure area is strictly for Paliwal Properties administrators.
         </p>
       </div>
     </div>
