@@ -33,8 +33,10 @@ function MapUpdater({ position }: { position: L.LatLng | null }) {
   return null;
 }
 
-export default function MapPicker() {
-  const [position, setPosition] = useState<L.LatLng | null>(null);
+export default function MapPicker({ initialPosition }: { initialPosition?: { lat: number, lng: number } | null }) {
+  const [position, setPosition] = useState<L.LatLng | null>(
+    initialPosition ? new L.LatLng(initialPosition.lat, initialPosition.lng) : null
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 

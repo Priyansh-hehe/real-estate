@@ -13,12 +13,13 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 interface ImageUploaderProps {
   onUploadComplete: (urls: string[]) => void;
   maxFiles?: number;
+  initialUrls?: string[];
 }
 
-export default function ImageUploader({ onUploadComplete, maxFiles = 5 }: ImageUploaderProps) {
+export default function ImageUploader({ onUploadComplete, maxFiles = 5, initialUrls = [] }: ImageUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>(initialUrls);
   const [error, setError] = useState<string | null>(null);
 
   const handleDragOver = (e: React.DragEvent) => {

@@ -59,8 +59,14 @@ export default async function DashboardPage() {
                 <div className="flex justify-between items-center text-sm border-t border-zinc-100 dark:border-zinc-800 pt-4">
                   <span className="text-zinc-600 dark:text-zinc-400">{property.propertyType} • {property.size} sqft</span>
                   
-                  {/* Delete Button calling our Server Action */}
-                  <form action={async () => {
+                  <div className="flex items-center gap-4">
+                    {/* Edit Button */}
+                    <Link href={`/dashboard/edit/${property.id}`} className="text-blue-600 hover:text-blue-700 font-medium">
+                      Edit
+                    </Link>
+
+                    {/* Delete Button calling our Server Action */}
+                    <form action={async () => {
                     "use server";
                     await deleteProperty(property.id);
                   }}>
@@ -68,6 +74,7 @@ export default async function DashboardPage() {
                       Delete
                     </button>
                   </form>
+                  </div>
                 </div>
               </div>
             </div>

@@ -48,6 +48,47 @@ export async function createProperty(formData: FormData) {
   revalidatePath("/dashboard");
 }
 
+export async function updateProperty(propertyId: string, formData: FormData) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+  const price = parseFloat(formData.get("price") as string);
+  const propertyType = formData.get("propertyType") as string;
+  const size = parseFloat(formData.get("size") as string);
+  const address = formData.get("address") as string;
+  
+  const latitude = formData.get("latitude") ? parseFloat(formData.get("latitude") as string) : null;
+  const longitude = formData.get("longitude") ? parseFloat(formData.get("longitude") as string) : null;
+  
+  const images = formData.getAll("images") as string[];
+
+  // Ensure they only update their own property
+  await prisma.property.update({
+    where: {
+      id: propertyId,
+      userId: session.user.id
+    },
+    data: {
+      title,
+      description,
+      price,
+      propertyType,
+      size,
+      address,
+      latitude,
+      longitude,
+      images,
+    }
+  });
+
+  revalidatePath("/dashboard");
+}
+
 export async function deleteProperty(propertyId: string) {
   const session = await getServerSession(authOptions);
 
