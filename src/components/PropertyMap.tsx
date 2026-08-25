@@ -25,13 +25,14 @@ export default function PropertyMap({ latitude, longitude }: PropertyMapProps) {
       <MapContainer 
         center={position} 
         zoom={15} 
-        scrollWheelZoom={false} // Disable scrolling so it doesn't interrupt page scrolling
+        scrollWheelZoom={true} // Enabled scroll zooming for trackpads and mice
         style={{ height: "100%", width: "100%" }}
       >
-        {/* CartoDB Dark Matter Theme */}
+        {/* Standard OSM with CSS Dark Mode Invert */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          className="map-tiles"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position}></Marker>
       </MapContainer>
