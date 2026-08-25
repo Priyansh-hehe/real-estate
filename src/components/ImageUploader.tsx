@@ -85,7 +85,7 @@ export default function ImageUploader({ onUploadComplete, maxFiles = 5, initialU
       setUploadedUrls(allUrls);
       onUploadComplete(allUrls);
       
-    } catch (err) {
+    } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred during upload.");
     } finally {
       setIsUploading(false);
