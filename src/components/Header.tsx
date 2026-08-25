@@ -11,7 +11,7 @@ export default async function Header() {
   return (
     <nav className="w-full flex items-center justify-between p-6 border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
       <Link href="/" className="text-2xl font-bold tracking-tighter text-zinc-900 dark:text-white">
-        Paliwal Properties<span className="text-blue-600">.</span>
+        Paliwal Properties
       </Link>
       
       <div className="flex items-center gap-6">
