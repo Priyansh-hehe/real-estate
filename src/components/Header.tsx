@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 import UserMenu from "./UserMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
@@ -17,6 +18,8 @@ export default async function Header() {
         <Link href="/" className="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-blue-600 transition-colors">
           Home
         </Link>
+
+        <ThemeToggle />
         
         {session ? (
           <div className="flex items-center gap-4">

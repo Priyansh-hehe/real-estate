@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { UploadCloud, X, Loader2, Image as ImageIcon } from "lucide-react";
+import { useState } from "react";
+import { UploadCloud, X, Loader2 } from "lucide-react";
 import imageCompression from "browser-image-compression";
 import { uploadImageAction } from "@/app/actions/upload";
 
@@ -85,8 +85,8 @@ export default function ImageUploader({ onUploadComplete, maxFiles = 5, initialU
       setUploadedUrls(allUrls);
       onUploadComplete(allUrls);
       
-    } catch (err: any) {
-      setError(err.message || "An error occurred during upload.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred during upload.");
     } finally {
       setIsUploading(false);
     }
