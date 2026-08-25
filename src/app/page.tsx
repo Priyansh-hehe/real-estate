@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: { searchParams: { q?: strin
       {/* Hero Section */}
       <main className="flex flex-col items-center justify-center pt-32 pb-20 px-6 text-center">
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight max-w-4xl mb-6">
-          Find the perfect place to <br className="hidden md:block"/> call <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">home</span>.
+          Find the perfect place to <br className="hidden md:block"/> call <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">home</span>
         </h1>
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mb-10">
           Discover premium land plots, luxury buildings, and commercial real estate with our exclusive platform.
