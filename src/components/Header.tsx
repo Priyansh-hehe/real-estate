@@ -23,12 +23,14 @@ export default async function Header() {
         
         {session ? (
           <div className="flex items-center gap-4">
-            <Link 
-              href="/dashboard" 
-              className="text-sm font-semibold hover:text-blue-600 transition-colors bg-zinc-100 dark:bg-zinc-900 px-4 py-2 rounded-full"
-            >
-              Dashboard
-            </Link>
+            {(session.user?.role === "ADMIN" || session.user?.role === "AGENT") && (
+              <Link 
+                href="/dashboard" 
+                className="text-sm font-semibold hover:text-blue-600 transition-colors bg-zinc-100 dark:bg-zinc-900 px-4 py-2 rounded-full"
+              >
+                Dashboard
+              </Link>
+            )}
             <UserMenu session={session} />
           </div>
         ) : (

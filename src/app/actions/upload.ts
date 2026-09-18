@@ -5,10 +5,10 @@ import { authOptions } from "@/lib/auth";
 import { createClient } from "@supabase/supabase-js";
 
 export async function uploadImageAction(formData: FormData) {
-  // 1. Verify the user is an authorized admin
+  // 1. Verify the user is an authorized admin or agent
   const session = await getServerSession(authOptions);
-  if (!session || !session.user?.id) {
-    throw new Error("Unauthorized: Only admins can upload images.");
+  if (!session || !session.user?.id || (session.user.role !== "ADMIN" && session.user.role !== "AGENT")) {
+    throw new Error("Unauthorized: Only Admins and Agents can upload images.");
   }
 
   const file = formData.get("file") as File;

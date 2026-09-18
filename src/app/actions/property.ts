@@ -6,11 +6,11 @@ import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 export async function createProperty(formData: FormData) {
-  // 1. Verify the user is actually logged in
+  // 1. Verify the user is an Admin or Agent
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user?.id) {
-    throw new Error("Unauthorized: You must be logged in to add a property.");
+  if (!session || !session.user?.id || (session.user.role !== "ADMIN" && session.user.role !== "AGENT")) {
+    throw new Error("Unauthorized: Only Admins and Agents can add properties.");
   }
 
   // 2. Extract the data from the form
@@ -44,15 +44,16 @@ export async function createProperty(formData: FormData) {
     }
   });
 
-  // 4. Tell Next.js to refresh the dashboard so the new property shows up instantly
+  // 4. Tell Next.js to refresh the dashboard and homepage so the new property shows up instantly
   revalidatePath("/dashboard");
+  revalidatePath("/");
 }
 
 export async function updateProperty(propertyId: string, formData: FormData) {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user?.id) {
-    throw new Error("Unauthorized");
+  if (!session || !session.user?.id || (session.user.role !== "ADMIN" && session.user.role !== "AGENT")) {
+    throw new Error("Unauthorized: Only Admins and Agents can edit properties.");
   }
 
   const title = formData.get("title") as string;
@@ -67,12 +68,13 @@ export async function updateProperty(propertyId: string, formData: FormData) {
   
   const images = formData.getAll("images") as string[];
 
-  // Ensure they only update their own property
+  // Admins can update any property; Agents can only update their own
+  const whereClause = session.user.role === "ADMIN" 
+    ? { id: propertyId } 
+    : { id: propertyId, userId: session.user.id };
+
   await prisma.property.update({
-    where: {
-      id: propertyId,
-      userId: session.user.id
-    },
+    where: whereClause,
     data: {
       title,
       description,
@@ -87,22 +89,26 @@ export async function updateProperty(propertyId: string, formData: FormData) {
   });
 
   revalidatePath("/dashboard");
+  revalidatePath("/");
+  revalidatePath(`/properties/${propertyId}`);
 }
 
 export async function deleteProperty(propertyId: string) {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user?.id) {
-    throw new Error("Unauthorized");
+  if (!session || !session.user?.id || (session.user.role !== "ADMIN" && session.user.role !== "AGENT")) {
+    throw new Error("Unauthorized: Only Admins and Agents can delete properties.");
   }
 
-  // Ensure they only delete their own properties
+  // Admins can delete any property; Agents can only delete their own
+  const whereClause = session.user.role === "ADMIN"
+    ? { id: propertyId }
+    : { id: propertyId, userId: session.user.id };
+
   await prisma.property.delete({
-    where: {
-      id: propertyId,
-      userId: session.user.id
-    }
+    where: whereClause,
   });
 
   revalidatePath("/dashboard");
+  revalidatePath("/");
 }

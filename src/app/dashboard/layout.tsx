@@ -13,13 +13,23 @@ export default async function DashboardLayout({ children }: { children: ReactNod
     redirect("/login");
   }
 
+  // Only Admins and Agents can access the dashboard
+  if (session.user.role !== "ADMIN" && session.user.role !== "AGENT") {
+    redirect("/");
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row">
       {/* Sidebar */}
       <aside className="w-full md:w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 p-6 flex flex-col">
         <div className="mb-8">
-          <h2 className="text-xl font-bold">Admin Panel</h2>
+          <h2 className="text-xl font-bold">
+            {session.user?.role === "ADMIN" ? "Admin Panel" : "Agent Portal"}
+          </h2>
           <p className="text-sm text-zinc-500">Welcome, {session.user?.name}</p>
+          <span className="inline-block mt-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
+            {session.user?.role}
+          </span>
         </div>
         
         <nav className="flex flex-col gap-2">

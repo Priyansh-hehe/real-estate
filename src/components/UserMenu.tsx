@@ -40,7 +40,20 @@ export default function UserMenu({ session }: { session: any }) {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-zinc-900 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-800 py-2 z-50">
           <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 mb-1">
-            <p className="text-sm font-semibold truncate text-zinc-900 dark:text-white">{session.user?.name}</p>
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <p className="text-sm font-semibold truncate text-zinc-900 dark:text-white">{session.user?.name}</p>
+              {session.user?.role && (
+                <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                  session.user.role === "ADMIN" 
+                    ? "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300"
+                    : session.user.role === "AGENT"
+                    ? "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300"
+                    : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                }`}>
+                  {session.user.role}
+                </span>
+              )}
+            </div>
             <p className="text-xs text-zinc-500 truncate">{session.user?.email}</p>
           </div>
           

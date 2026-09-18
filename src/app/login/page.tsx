@@ -9,7 +9,7 @@ export default function LoginPage() {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
-      await signIn("google", { callbackUrl: "/dashboard" });
+      await signIn("google", { callbackUrl: "/" });
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -19,8 +19,8 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-6">
       <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl shadow-xl border border-zinc-200 dark:border-zinc-800 p-8 text-center">
-        <h1 className="text-3xl font-bold tracking-tight mb-2 text-zinc-900 dark:text-white">Admin Login</h1>
-        <p className="text-zinc-500 dark:text-zinc-400 mb-8">Sign in securely to manage your property listings.</p>
+        <h1 className="text-3xl font-bold tracking-tight mb-2 text-zinc-900 dark:text-white">Welcome</h1>
+        <p className="text-zinc-500 dark:text-zinc-400 mb-8">Sign in with Google to access Paliwal Properties.</p>
 
         <button 
           onClick={handleGoogleSignIn}
@@ -49,7 +49,7 @@ export default function LoginPage() {
         </button>
 
         <p className="mt-8 text-xs text-zinc-400 dark:text-zinc-500">
-          This secure area is strictly for Paliwal Properties administrators.
+          Sign in to view member features or manage your listings.
         </p>
       </div>
     </div>
