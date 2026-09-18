@@ -20,17 +20,19 @@ enum Role {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
-  role          Role      @default(CUSTOMER)
+  role          Role       @default(CUSTOMER)
   accounts      Account[]
   sessions      Session[]
   properties    Property[] // A user can list multiple properties
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  favorites     Favorite[] // Saved properties wishlist
+  inquiries     Inquiry[]  // Inquiries submitted by this user
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
 model Account {
@@ -73,20 +75,47 @@ model VerificationToken {
 // ------------------------------------------------------
 
 model Property {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
-  description String   @db.Text
+  description String     @db.Text
   price       Float
-  propertyType String  // e.g., "LAND", "BUILDING"
-  size        Float    // Square feet or acres
+  propertyType String    // e.g., "LAND", "BUILDING"
+  size        Float      // Square feet or acres
   latitude    Float?
   longitude   Float?
   address     String?
-  images      String[] // Array of image URLs
+  images      String[]   // Array of image URLs
 
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  favorites   Favorite[] // Users who favorited this property
+  inquiries   Inquiry[]  // Customer inquiries for this property
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  propertyId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, propertyId])
+}
+
+model Inquiry {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name       String
+  phone      String
+  email      String?
+  message    String?  @db.Text
+  createdAt  DateTime @default(now())
 }

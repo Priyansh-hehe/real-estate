@@ -26,6 +26,38 @@ body {
 }
 
 /* Custom Leaflet Map Inversion for Detailed Dark Mode */
-.map-tiles {
+.dark .map-tiles {
   filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
 }
+
+/* Infinite Carousel Animation */
+@keyframes carousel {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-carousel {
+  display: flex;
+  width: max-content;
+  animation: carousel 35s linear infinite;
+}
+
+.animate-carousel:hover,
+.animation-pause {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
