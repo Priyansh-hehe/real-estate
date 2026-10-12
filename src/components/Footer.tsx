@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * GLOBAL FOOTER COMPONENT (src/components/Footer.tsx)
+ * ==============================================================================
+ * Site-wide bottom footer:
+ * - Call to Action banner with 1-click WhatsApp and Direct Call to 9414177565.
+ * - Legal copyright notice for Paliwal Properties, Kota, Rajasthan.
+ * - Automatically hidden on /dashboard management pages.
+ * ==============================================================================
+ */
+
 "use client";
 
 import Link from "next/link";

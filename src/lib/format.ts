@@ -1,8 +1,12 @@
 /**
- * Formats price according to the Indian Numbering System.
- * - Under 1 Lakh: Standard INR format with commas (e.g., ₹50,000)
+ * ==============================================================================
+ * INDIAN CURRENCY FORMATTER (src/lib/format.ts)
+ * ==============================================================================
+ * Formats price according to the Indian Numbering System:
+ * - Under 1 Lakh (< 1,00,000): Standard INR format with commas (e.g., ₹50,000)
  * - 1 Lakh to < 1 Crore: Formatted in Lakhs (e.g., ₹1 Lakh, ₹25 Lakhs, ₹45.5 Lakhs)
  * - 1 Crore and above: Formatted in Crores (e.g., ₹1 Crore, ₹1.25 Crores, ₹3.5 Crores)
+ * ==============================================================================
  */
 export function formatPrice(price: number | null | undefined): string {
   if (price === null || price === undefined || isNaN(price)) {

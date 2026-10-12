@@ -1,3 +1,12 @@
+/**
+ * ==============================================================================
+ * THEME TOGGLE BUTTON (src/components/ThemeToggle.tsx)
+ * ==============================================================================
+ * Button component switching between Light and Dark mode using next-themes.
+ * Uses mounted hydration safeguard to avoid SSR mismatch flicker.
+ * ==============================================================================
+ */
+
 "use client";
 
 import * as React from "react";

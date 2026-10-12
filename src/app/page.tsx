@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * HOMEPAGE (src/app/page.tsx)
+ * ==============================================================================
+ * Main landing page for Paliwal Properties:
+ * - Displays the sticky navigation header with integrated search and navigation drawer.
+ * - Shows the compact "25+ Years of Experience" trust banner.
+ * - Server-side queries top featured property listings from Prisma.
+ * - Renders the infinite horizontal looping carousel with quick details & wishlist buttons.
+ * ==============================================================================
+ */
+
 import Link from "next/link";
 import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";

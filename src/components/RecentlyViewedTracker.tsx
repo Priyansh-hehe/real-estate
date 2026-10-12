@@ -1,3 +1,13 @@
+/**
+ * ==============================================================================
+ * RECENTLY VIEWED TRACKER (src/components/RecentlyViewedTracker.tsx)
+ * ==============================================================================
+ * Invisible client-side component mounted on property detail pages:
+ * - Automatically records viewed property metadata into localStorage.
+ * - Caps saved history to the latest 10 properties with timestamps.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useEffect } from "react";

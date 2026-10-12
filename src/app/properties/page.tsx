@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * ALL PROPERTIES CATALOG & MAP VIEW (src/app/properties/page.tsx)
+ * ==============================================================================
+ * Comprehensive property browsing page:
+ * - Supports dual view modes: Grid View and Multi-Pin Interactive Map View (OpenStreetMap/Leaflet).
+ * - Filter by property category (All, Residential Land & Plots, Buildings & Villas).
+ * - Sort by Price (Low to High, High to Low) and Newest.
+ * - Displays prices formatted in Indian Lakhs and Crores.
+ * ==============================================================================
+ */
+
 import Link from "next/link";
 import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";

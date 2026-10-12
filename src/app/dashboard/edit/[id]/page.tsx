@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * EDIT PROPERTY PAGE (src/app/dashboard/edit/[id]/page.tsx)
+ * ==============================================================================
+ * Server component that fetches an existing property and checks permissions:
+ * - ADMIN can edit any property listing.
+ * - AGENT can only edit properties they personally created.
+ * - Loads EditPropertyForm pre-filled with the current values.
+ * ==============================================================================
+ */
+
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

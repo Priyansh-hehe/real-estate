@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * FAVORITE / WISHLIST BUTTON COMPONENT (src/components/FavoriteButton.tsx)
+ * ==============================================================================
+ * Interactive heart toggle button rendered on property cards and details:
+ * - Syncs bookmark status with PostgreSQL database for logged-in accounts.
+ * - Gracefully falls back to browser localStorage for guests without requiring sign-in.
+ * - Includes micro-animations on toggle.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState, useEffect } from "react";

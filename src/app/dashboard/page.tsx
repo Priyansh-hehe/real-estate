@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * DASHBOARD PROPERTIES MANAGEMENT (src/app/dashboard/page.tsx)
+ * ==============================================================================
+ * Main management view for Admins and Agents:
+ * - Lists properties owned by the current user (or all properties for admins).
+ * - Shows price in Lakhs/Crores, property dimensions, and status.
+ * - Provides direct Edit and Delete controls powered by Server Actions.
+ * ==============================================================================
+ */
+
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

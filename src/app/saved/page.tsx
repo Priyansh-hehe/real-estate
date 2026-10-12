@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * SAVED PROPERTIES & WISHLIST HUB (src/app/saved/page.tsx)
+ * ==============================================================================
+ * Customer hub showing:
+ * 1. Saved/Bookmarked properties queried from PostgreSQL for authenticated users.
+ * 2. Guest bookmark support via FavoriteButton.
+ * 3. Recently viewed properties history slider powered by client localStorage.
+ * ==============================================================================
+ */
+
 import Link from "next/link";
 import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";

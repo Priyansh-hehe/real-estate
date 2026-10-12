@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * DASHBOARD LAYOUT (src/app/dashboard/layout.tsx)
+ * ==============================================================================
+ * Secure layout for the Admin Panel & Agent Portal:
+ * - Checks session authentication; redirects unauthenticated users to /login.
+ * - Enforces role-based security wall: only ADMIN and AGENT roles can enter.
+ * - Displays dedicated sidebar with navigation, role badge, and sign-out controls.
+ * ==============================================================================
+ */
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";

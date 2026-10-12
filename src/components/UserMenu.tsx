@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * USER PROFILE MENU (src/components/UserMenu.tsx)
+ * ==============================================================================
+ * Dropdown profile menu in header:
+ * - Displays user Google avatar or initials fallback.
+ * - Shows user name, email, and color-coded Role badge (ADMIN, AGENT, CUSTOMER).
+ * - Provides NextAuth sign-out button.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";

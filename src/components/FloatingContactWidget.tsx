@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * FLOATING CONTACT WIDGET (src/components/FloatingContactWidget.tsx)
+ * ==============================================================================
+ * Anchored to the bottom-right corner of customer-facing pages:
+ * - Provides 1-tap quick action pills for WhatsApp and Direct Call (9414177565).
+ * - Expandable quick help popover for instant consultation.
+ * - Automatically hidden on /dashboard management pages.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState } from "react";

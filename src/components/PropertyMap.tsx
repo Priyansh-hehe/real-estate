@@ -1,3 +1,13 @@
+/**
+ * ==============================================================================
+ * PROPERTY MAP DISPLAY (src/components/PropertyMap.tsx)
+ * ==============================================================================
+ * Renders an interactive OpenStreetMap view centered on a specific property's pin:
+ * - Shows exact geographic location with Leaflet marker.
+ * - Supports scroll-wheel zoom, panning, and dark-mode tile inverted styling.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { MapContainer, TileLayer, Marker } from "react-leaflet";

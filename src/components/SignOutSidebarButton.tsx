@@ -1,3 +1,12 @@
+/**
+ * ==============================================================================
+ * DASHBOARD SIDEBAR SIGN-OUT BUTTON (src/components/SignOutSidebarButton.tsx)
+ * ==============================================================================
+ * Clean client component button placed in the admin/agent dashboard sidebar:
+ * - Invokes NextAuth signOut and redirects user back to the homepage ('/').
+ * ==============================================================================
+ */
+
 "use client";
 
 import { signOut } from "next-auth/react";

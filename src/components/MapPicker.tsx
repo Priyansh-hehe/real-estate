@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * MAP PIN PICKER COMPONENT (src/components/MapPicker.tsx)
+ * ==============================================================================
+ * Interactive OpenStreetMap picker used when adding or editing properties:
+ * - Allows admins/agents to click on the map to set exact latitude and longitude.
+ * - Draggable marker updates form coordinate inputs in real-time.
+ * - Defaults to Kota, Rajasthan coordinates (25.18, 75.83).
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState } from "react";

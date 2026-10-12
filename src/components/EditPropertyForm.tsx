@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * EDIT PROPERTY FORM (src/components/EditPropertyForm.tsx)
+ * ==============================================================================
+ * Interactive form component for modifying existing property listings:
+ * - Pre-populates title, description, price, size, property type, and coordinates.
+ * - Allows adding or removing images with Supabase Storage integration.
+ * - Provides map repositioning via MapPicker.
+ * - Submits changes to updateProperty Server Action.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { updateProperty } from "@/app/actions/property";

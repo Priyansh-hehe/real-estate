@@ -1,3 +1,13 @@
+/**
+ * ==============================================================================
+ * SINGLE PROPERTY MAP LOADER (src/components/MapLoader.tsx)
+ * ==============================================================================
+ * Client boundary wrapper for PropertyMap on property details pages:
+ * - Dynamically imports PropertyMap with `ssr: false` to avoid SSR window errors.
+ * - Displays a skeleton pulse loader while the map initializes.
+ * ==============================================================================
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";

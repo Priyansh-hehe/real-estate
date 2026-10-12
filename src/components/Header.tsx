@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * HEADER NAVIGATION COMPONENT (src/components/Header.tsx)
+ * ==============================================================================
+ * Top sticky navigation bar:
+ * - Brand logo linking to Home.
+ * - Hamburger toggle button for NavDrawer.
+ * - Compact property search bar.
+ * - Quick shortcuts to All Properties, Saved Wishlist, ThemeToggle, and UserMenu.
+ * ==============================================================================
+ */
+
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

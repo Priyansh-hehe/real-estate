@@ -1,3 +1,13 @@
+/**
+ * ==============================================================================
+ * ALL PROPERTIES MAP SSR LOADER (src/components/AllPropertiesMapLoader.tsx)
+ * ==============================================================================
+ * Client boundary loader for AllPropertiesMap:
+ * - Dynamically imports Leaflet with `ssr: false` to prevent Next.js server-side 'window is not defined' errors.
+ * - Displays a sleek loading state while OpenStreetMap assets initialize.
+ * ==============================================================================
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";

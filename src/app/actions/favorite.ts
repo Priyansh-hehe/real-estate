@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * FAVORITE / WISHLIST SERVER ACTIONS (src/app/actions/favorite.ts)
+ * ==============================================================================
+ * Manages user bookmarks and saved properties in the PostgreSQL database:
+ * - toggleFavoriteAction: Adds or removes a property from the user's wishlist.
+ * - getUserFavoriteIdsAction: Retrieves all saved property IDs for the authenticated user.
+ * Enables persistent wishlists across multiple devices when signed in.
+ * ==============================================================================
+ */
+
 "use server";
 
 import { prisma } from "@/lib/prisma";

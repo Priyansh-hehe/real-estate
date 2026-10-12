@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * IMAGE UPLOAD SERVER ACTION (src/app/actions/upload.ts)
+ * ==============================================================================
+ * Securely uploads property photos to Supabase Storage:
+ * - Checks admin/agent authorization.
+ * - Uploads the raw image buffer to the 'properties' Supabase Storage bucket.
+ * - Generates and returns a permanent public URL to store in the database.
+ * ==============================================================================
+ */
+
 "use server";
 
 import { getServerSession } from "next-auth";

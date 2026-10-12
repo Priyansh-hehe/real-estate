@@ -1,3 +1,16 @@
+/**
+ * ==============================================================================
+ * PROPERTY DETAILS PAGE (src/app/properties/[id]/page.tsx)
+ * ==============================================================================
+ * Detailed showcase page for an individual real estate listing:
+ * - High-resolution image gallery.
+ * - Pricing formatted in Indian Lakhs/Crores.
+ * - Geographic OpenStreetMap location pin.
+ * - Direct contact card (1-tap WhatsApp and Phone Call to 9414177565).
+ * - Client-side view history tracking via RecentlyViewedTracker.
+ * ==============================================================================
+ */
+
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";

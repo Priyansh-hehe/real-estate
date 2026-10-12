@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * FEATURED PROPERTIES CAROUSEL (src/components/FeaturedPropertiesCarousel.tsx)
+ * ==============================================================================
+ * Homepage marquee carousel:
+ * - Continuously scrolls prime listings horizontally with infinite CSS loop.
+ * - Pauses automatically on hover so users can browse comfortably.
+ * - Supports manual arrow controls (Left/Right) for touch & desktop devices.
+ * - Displays prices formatted in Lakhs/Crores and includes quick Favorite bookmarking.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useRef, useState } from "react";

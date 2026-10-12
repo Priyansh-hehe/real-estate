@@ -1,3 +1,16 @@
+/**
+ * ==============================================================================
+ * ROOT APPLICATION LAYOUT (src/app/layout.tsx)
+ * ==============================================================================
+ * Top-level layout wrapping the entire application:
+ * - Loads Google Geist fonts.
+ * - Injects ThemeProvider (Dark/Light mode support with zero transition flicker).
+ * - Injects AuthProvider (NextAuth SessionProvider).
+ * - Globally mounts Footer and FloatingContactWidget.
+ * - Defines SEO metadata for Paliwal Properties.
+ * ==============================================================================
+ */
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

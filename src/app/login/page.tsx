@@ -1,3 +1,13 @@
+/**
+ * ==============================================================================
+ * SIGN IN / LOGIN PAGE (src/app/login/page.tsx)
+ * ==============================================================================
+ * Universal Google OAuth login portal for Customers, Agents, and Admins.
+ * Allows visitors to sign in with Google to sync their saved wishlist,
+ * or agents/admins to authenticate into the management dashboard.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState } from "react";

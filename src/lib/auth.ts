@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * AUTHENTICATION CONFIGURATION (src/lib/auth.ts)
+ * ==============================================================================
+ * Configures NextAuth.js for the entire application:
+ * - Uses Google OAuth 2.0 provider for authentication.
+ * - Uses PrismaAdapter to persist users, accounts, and sessions in PostgreSQL.
+ * - Implements database Role-Based Access Control (RBAC): ADMIN, AGENT, CUSTOMER.
+ * - Augments JWT tokens and sessions with user ID and Role.
+ * ==============================================================================
+ */
+
 import { NextAuthOptions, DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";

@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * NAVIGATION DRAWER COMPONENT (src/components/NavDrawer.tsx)
+ * ==============================================================================
+ * Full-height slide-out navigation menu triggered from the top-left hamburger button:
+ * - Uses React createPortal to escape parent backdrop-filter CSS stacking contexts.
+ * - Links to Home, All Properties, Map View, Saved Wishlist, and Dashboard.
+ * - Provides category filters (Land vs Buildings) and prime Kota locality tags.
+ * - Includes dedicated direct WhatsApp and Phone Call advisory shortcuts.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState, useEffect } from "react";

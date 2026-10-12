@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * RECENTLY VIEWED SECTION (src/components/RecentlyViewedSection.tsx)
+ * ==============================================================================
+ * Displays the user's browsing history as a carousel slider:
+ * - Reads stored properties from browser localStorage.
+ * - Allows 1-click clearing of browsing history.
+ * - Displays prices formatted in Lakhs/Crores.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useEffect, useState } from "react";

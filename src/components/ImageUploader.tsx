@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * IMAGE UPLOADER COMPONENT (src/components/ImageUploader.tsx)
+ * ==============================================================================
+ * Drag-and-drop / file picker photo upload tool for property creation and editing:
+ * - Automatically compresses large property photos client-side to optimize speed.
+ * - Streams uploads to Supabase Storage bucket through Server Action.
+ * - Displays upload progress loaders and photo preview thumbnails with delete controls.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useState } from "react";

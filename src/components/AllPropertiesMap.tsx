@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * ALL PROPERTIES INTERACTIVE MAP (src/components/AllPropertiesMap.tsx)
+ * ==============================================================================
+ * OpenStreetMap & Leaflet interactive map rendering pins for all listed properties:
+ * - Automatically auto-centers and bounds the map view to enclose all property pins.
+ * - Clicking a pin opens a rich popup preview with image, property title, price, and direct link.
+ * - Supports theme-aware map tile filtering (clean light tiles and dark inverted mode).
+ * ==============================================================================
+ */
+
 "use client";
 
 import { useEffect } from "react";

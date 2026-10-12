@@ -1,3 +1,14 @@
+/**
+ * ==============================================================================
+ * ADD PROPERTY PAGE (src/app/dashboard/add/page.tsx)
+ * ==============================================================================
+ * Form interface for Admins and Agents to list new properties:
+ * - Title, Property Type (LAND / BUILDING), Price, Size, and Address.
+ * - Photo uploading to Supabase Storage via ImageUploader component.
+ * - Geographic coordinate pin placement via interactive MapPicker.
+ * ==============================================================================
+ */
+
 "use client";
 
 import { createProperty } from "@/app/actions/property";
