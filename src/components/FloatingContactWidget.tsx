@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Phone, MessageCircle, X } from "lucide-react";
 
 export default function FloatingContactWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const phoneNumber = "9414177565";
   const formattedPhone = "+91 94141 77565";
   const whatsappUrl = `https://wa.me/919414177565?text=${encodeURIComponent(
     "Hello Paliwal Properties, I would like to inquire about properties in Kota."
   )}`;
+
+  // Do not display contact widget on admin/agent dashboard
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2.5">

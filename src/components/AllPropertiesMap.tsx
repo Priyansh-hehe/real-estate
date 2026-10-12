@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { formatPrice } from "@/lib/format";
 import L from "leaflet";
 import Link from "next/link";
 import { Building, Maximize2, MapPin } from "lucide-react";
@@ -69,14 +70,6 @@ export default function AllPropertiesMap({ properties }: AllPropertiesMapProps) 
 
   // Default fallback center: Kota, Rajasthan (25.18, 75.83)
   const defaultCenter = new L.LatLng(25.18, 75.83);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   return (
     <div className="h-[600px] w-full rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-lg relative z-0">

@@ -1,5 +1,8 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// ==============================================================================
+// PRISMA SCHEMA CONFIGURATION
+// This file defines the PostgreSQL database schema for Paliwal Properties,
+// including User authentication models (NextAuth), Property listings, and Favorites.
+// ==============================================================================
 
 generator client {
   provider = "prisma-client-js"
@@ -10,7 +13,7 @@ datasource db {
 }
 
 // ------------------------------------------------------
-// NextAuth Required Models (For Authentication)
+// NextAuth Required Models (For Authentication & RBAC)
 // ------------------------------------------------------
 
 enum Role {
@@ -30,7 +33,6 @@ model User {
   sessions      Session[]
   properties    Property[] // A user can list multiple properties
   favorites     Favorite[] // Saved properties wishlist
-  inquiries     Inquiry[]  // Inquiries submitted by this user
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 }
@@ -90,7 +92,6 @@ model Property {
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   favorites   Favorite[] // Users who favorited this property
-  inquiries   Inquiry[]  // Customer inquiries for this property
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -105,17 +106,4 @@ model Favorite {
   createdAt  DateTime @default(now())
 
   @@unique([userId, propertyId])
-}
-
-model Inquiry {
-  id         String   @id @default(cuid())
-  propertyId String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  userId     String?
-  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  name       String
-  phone      String
-  email      String?
-  message    String?  @db.Text
-  createdAt  DateTime @default(now())
 }

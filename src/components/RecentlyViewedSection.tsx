@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Clock, Building, Maximize2, MapPin, Trash2 } from "lucide-react";
 import type { ViewedProperty } from "./RecentlyViewedTracker";
+import { formatPrice } from "@/lib/format";
 
 export default function RecentlyViewedSection({ currentPropertyId }: { currentPropertyId?: string }) {
   const [recentProperties, setRecentProperties] = useState<ViewedProperty[]>([]);
@@ -28,14 +29,6 @@ export default function RecentlyViewedSection({ currentPropertyId }: { currentPr
   const clearHistory = () => {
     localStorage.removeItem("paliwal_recent_views");
     setRecentProperties([]);
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(price);
   };
 
   if (!mounted || recentProperties.length === 0) {

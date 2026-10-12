@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import FavoriteButton from "@/components/FavoriteButton";
 import RecentlyViewedSection from "@/components/RecentlyViewedSection";
+import { formatPrice } from "@/lib/format";
 import { Heart, Building, Maximize2, MapPin, Sparkles, ArrowLeft } from "lucide-react";
 
 export default async function SavedPropertiesPage() {
@@ -12,24 +13,20 @@ export default async function SavedPropertiesPage() {
 
   // If user is logged in, fetch their saved favorites from PostgreSQL
   let savedProperties: any[] = [];
-  if (session?.user?.id) {
-    const favorites = await prisma.favorite.findMany({
-      where: { userId: session.user.id },
-      include: {
-        property: true,
-      },
-      orderBy: { createdAt: "desc" },
-    });
-    savedProperties = favorites.map((f) => f.property);
+  if (session?.user?.id && (prisma as any).favorite) {
+    try {
+      const favorites = await prisma.favorite.findMany({
+        where: { userId: session.user.id },
+        include: {
+          property: true,
+        },
+        orderBy: { createdAt: "desc" },
+      });
+      savedProperties = favorites.map((f) => f.property);
+    } catch (err) {
+      console.error("Failed to load favorites:", err);
+    }
   }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-blue-500 selection:text-white pb-20">

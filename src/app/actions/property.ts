@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * PROPERTY SERVER ACTIONS (src/app/actions/property.ts)
+ * ==============================================================================
+ * Handles database operations for properties using Prisma:
+ * - createProperty: Validates role (ADMIN or AGENT) and inserts a new property listing.
+ * - updateProperty: Validates ownership or ADMIN permissions and updates listing data.
+ * - deleteProperty: Validates ownership or ADMIN permissions and removes listing.
+ * Automatically revalidates Next.js cache paths (/dashboard, /properties, /) on changes.
+ * ==============================================================================
+ */
+
 "use server";
 
 import { prisma } from "@/lib/prisma";

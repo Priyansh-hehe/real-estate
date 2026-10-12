@@ -13,6 +13,7 @@ import {
   Sparkles,
   ArrowUpDown
 } from "lucide-react";
+import { formatPrice } from "@/lib/format";
 
 export default async function AllPropertiesPage({
   searchParams,
@@ -49,14 +50,6 @@ export default async function AllPropertiesPage({
     where: whereClause,
     orderBy: orderBy,
   });
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   const propertiesWithMapPins = properties.filter(
     (p) => p.latitude !== null && p.longitude !== null

@@ -8,6 +8,7 @@ import FavoriteButton from "@/components/FavoriteButton";
 import InquiryForm from "@/components/InquiryForm";
 import RecentlyViewedTracker from "@/components/RecentlyViewedTracker";
 import RecentlyViewedSection from "@/components/RecentlyViewedSection";
+import { formatPrice } from "@/lib/format";
 import { ArrowLeft, Building, Maximize2, MapPin } from "lucide-react";
 
 export default async function PropertyDetailsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -20,14 +21,6 @@ export default async function PropertyDetailsPage({ params }: { params: Promise<
   if (!property) {
     notFound();
   }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(price);
-  };
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 pb-20 selection:bg-blue-500 selection:text-white">

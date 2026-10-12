@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { Search, Phone, Heart, Building2 } from "lucide-react";
+import { Search, Heart, Building2 } from "lucide-react";
 
 import NavDrawer from "./NavDrawer";
 import UserMenu from "./UserMenu";
@@ -51,16 +51,6 @@ export default async function Header() {
         >
           <Heart className="w-4 h-4" />
         </Link>
-
-        {/* Direct Contact Phone CTA */}
-        <a
-          href="tel:+919414177565"
-          className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-bold hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors"
-          title="Direct Call"
-        >
-          <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-          <span>9414177565</span>
-        </a>
 
         <ThemeToggle />
         

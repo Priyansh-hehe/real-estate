@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, MapPin, Building, Maximize2 } from "lucide-react";
 import FavoriteButton from "./FavoriteButton";
+import { formatPrice } from "@/lib/format";
 
 export interface PropertyItem {
   id: string;
@@ -23,14 +24,6 @@ interface FeaturedPropertiesCarouselProps {
 export default function FeaturedPropertiesCarousel({ properties }: FeaturedPropertiesCarouselProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   if (properties.length === 0) {
     return (
