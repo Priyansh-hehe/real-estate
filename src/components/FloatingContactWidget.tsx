@@ -30,10 +30,10 @@ export default function FloatingContactWidget() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2.5">
+    <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50 flex flex-col items-end gap-2.5 max-w-[calc(100vw-1.5rem)]">
       {/* Expanded Quick Contact Panel */}
       {isOpen && (
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 shadow-2xl w-64 animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 shadow-2xl w-64 max-w-[calc(100vw-2rem)] animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-100 dark:border-zinc-800">
             <div>
               <p className="text-xs font-bold text-zinc-900 dark:text-white">Quick Property Help</p>

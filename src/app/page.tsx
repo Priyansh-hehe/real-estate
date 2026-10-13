@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   });
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-blue-500 selection:text-white">
       <Header />
 
       {/* Sleek One-Liner Trust Banner */}

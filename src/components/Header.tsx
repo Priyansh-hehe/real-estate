@@ -23,11 +23,11 @@ export default async function Header() {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="w-full flex items-center justify-between px-3 sm:px-8 py-3.5 border-b border-zinc-200 dark:border-zinc-800 bg-white/85 dark:bg-zinc-950/85 backdrop-blur-md sticky top-0 z-50 gap-2 sm:gap-4">
+    <nav className="w-full max-w-full overflow-hidden flex items-center justify-between px-3 sm:px-8 py-3.5 border-b border-zinc-200 dark:border-zinc-800 bg-white/85 dark:bg-zinc-950/85 backdrop-blur-md sticky top-0 z-50 gap-2 sm:gap-4">
       {/* Left Area: 3-Bar Hamburger Menu + Brand Logo */}
-      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-3 min-w-0 shrink">
         <NavDrawer session={session} />
-        <Link href="/" className="text-lg sm:text-2xl font-extrabold tracking-tighter text-zinc-900 dark:text-white shrink-0">
+        <Link href="/" className="text-base sm:text-2xl font-extrabold tracking-tighter text-zinc-900 dark:text-white truncate">
           Paliwal Properties
         </Link>
       </div>

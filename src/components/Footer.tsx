@@ -28,7 +28,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="w-full bg-zinc-900 text-zinc-300 border-t border-zinc-800 mt-auto">
+    <footer className="w-full max-w-full overflow-hidden bg-zinc-900 text-zinc-300 border-t border-zinc-800 mt-auto">
       {/* Top Banner / Call to Action */}
       <div className="bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-zinc-900 py-8 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
