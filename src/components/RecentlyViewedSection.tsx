@@ -13,13 +13,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Clock, Building, Maximize2, MapPin, Trash2 } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Clock, Building, Maximize2, MapPin, Trash2, Loader2 } from "lucide-react";
 import type { ViewedProperty } from "./RecentlyViewedTracker";
 import { formatPrice } from "@/lib/format";
 
 export default function RecentlyViewedSection({ currentPropertyId }: { currentPropertyId?: string }) {
+  const pathname = usePathname();
   const [recentProperties, setRecentProperties] = useState<ViewedProperty[]>([]);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+
+  // Clear card loading state whenever route changes or user navigates back
+  useEffect(() => {
+    setLoadingId(null);
+  }, [pathname]);
 
   useEffect(() => {
     setMounted(true);
@@ -69,53 +77,67 @@ export default function RecentlyViewedSection({ currentPropertyId }: { currentPr
       </div>
 
       <div className="flex gap-4 overflow-x-auto no-scrollbar pb-3">
-        {recentProperties.map((item) => (
-          <Link
-            href={`/properties/${item.id}`}
-            key={item.id}
-            className="group/item flex flex-col w-[260px] shrink-0 bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 shadow-sm hover:shadow-md transition-all cursor-pointer"
-          >
-            <div className="h-36 bg-zinc-100 dark:bg-zinc-800 relative overflow-hidden">
-              {item.image ? (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-zinc-400 text-xs">
-                  No Image
+        {recentProperties.map((item) => {
+          const isItemLoading = loadingId === item.id;
+          return (
+            <Link
+              href={`/properties/${item.id}`}
+              key={item.id}
+              onClick={() => setLoadingId(item.id)}
+              className={`group/item flex flex-col w-[260px] shrink-0 bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer active:scale-[0.98] tap-feedback ${
+                isItemLoading
+                  ? "ring-2 ring-blue-500 border-blue-500 shadow-md scale-[0.99]"
+                  : "border-zinc-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 shadow-sm hover:shadow-md"
+              }`}
+            >
+              <div className="h-36 bg-zinc-100 dark:bg-zinc-800 relative overflow-hidden">
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-zinc-400 text-xs">
+                    No Image
+                  </div>
+                )}
+                <div className="absolute top-2 left-2 flex items-center gap-1.5">
+                  <span className="bg-blue-600/90 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                    <Building className="w-2.5 h-2.5" />
+                    {item.propertyType}
+                  </span>
+                  {isItemLoading && (
+                    <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 animate-pulse">
+                      <Loader2 className="w-2.5 h-2.5 animate-spin" />
+                      <span>Loading</span>
+                    </span>
+                  )}
                 </div>
-              )}
-              <div className="absolute top-2 left-2">
-                <span className="bg-blue-600/90 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-                  <Building className="w-2.5 h-2.5" />
-                  {item.propertyType}
-                </span>
               </div>
-            </div>
 
-            <div className="p-3">
-              <h4 className="font-bold text-sm text-zinc-900 dark:text-white line-clamp-1 mb-1 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
-                {item.title}
-              </h4>
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span className="font-extrabold text-blue-600 dark:text-blue-400">
-                  {formatPrice(item.price)}
-                </span>
-                <span className="text-zinc-500 text-[11px]">
-                  {item.size} sqft
-                </span>
+              <div className="p-3">
+                <h4 className="font-bold text-sm text-zinc-900 dark:text-white line-clamp-1 mb-1 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
+                  {item.title}
+                </h4>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="font-extrabold text-blue-600 dark:text-blue-400">
+                    {formatPrice(item.price)}
+                  </span>
+                  <span className="text-zinc-500 text-[11px]">
+                    {item.size} sqft
+                  </span>
+                </div>
+                {item.address && (
+                  <p className="text-[11px] text-zinc-500 line-clamp-1 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-zinc-400 shrink-0" />
+                    <span>{item.address}</span>
+                  </p>
+                )}
               </div>
-              {item.address && (
-                <p className="text-[11px] text-zinc-500 line-clamp-1 flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-zinc-400 shrink-0" />
-                  <span>{item.address}</span>
-                </p>
-              )}
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

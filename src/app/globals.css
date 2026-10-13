@@ -49,3 +49,21 @@ body {
   scrollbar-width: none;
 }
 
+/* Eliminate 300ms mobile touch delay and provide tactile tap highlights */
+* {
+  -webkit-tap-highlight-color: rgba(59, 130, 246, 0.25);
+}
+
+button, a, input, select, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* Instant micro-press feedback on touch/click */
+.tap-feedback {
+  transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.12s ease;
+}
+
+.tap-feedback:active {
+  transform: scale(0.98);
+}
+

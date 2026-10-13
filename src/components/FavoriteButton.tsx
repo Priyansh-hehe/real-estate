@@ -12,7 +12,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { toggleFavoriteAction } from "@/app/actions/favorite";
 
 interface FavoriteButtonProps {
@@ -91,20 +91,24 @@ export default function FavoriteButton({
       onClick={handleToggle}
       disabled={isLoading}
       aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
-      className={`group/fav flex items-center gap-1.5 p-2 rounded-full transition-all duration-300 focus:outline-none cursor-pointer ${
+      className={`group/fav flex items-center gap-1.5 p-2 rounded-full transition-all duration-200 focus:outline-none cursor-pointer active:scale-90 tap-feedback active:ring-2 active:ring-rose-400/50 ${
         isFavorited
           ? "bg-rose-50 text-rose-600 dark:bg-rose-950/60 dark:text-rose-400"
           : "bg-black/30 backdrop-blur-md text-white hover:bg-black/50 dark:bg-zinc-800/80 dark:text-zinc-300 dark:hover:bg-zinc-700"
       } ${className}`}
     >
-      <Heart
-        className={`w-4 h-4 transition-transform duration-300 group-hover/fav:scale-125 ${
-          isFavorited ? "fill-rose-500 text-rose-500" : "fill-none"
-        }`}
-      />
+      {isLoading ? (
+        <Loader2 className="w-4 h-4 animate-spin text-rose-500" />
+      ) : (
+        <Heart
+          className={`w-4 h-4 transition-transform duration-300 group-hover/fav:scale-125 ${
+            isFavorited ? "fill-rose-500 text-rose-500" : "fill-none"
+          }`}
+        />
+      )}
       {showText && (
         <span className="text-xs font-semibold pr-1">
-          {isFavorited ? "Saved" : "Save"}
+          {isLoading ? "Saving..." : isFavorited ? "Saved" : "Save"}
         </span>
       )}
     </button>

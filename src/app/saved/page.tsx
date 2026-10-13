@@ -15,6 +15,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import FavoriteButton from "@/components/FavoriteButton";
+import PropertyCard from "@/components/PropertyCard";
 import RecentlyViewedSection from "@/components/RecentlyViewedSection";
 import { formatPrice } from "@/lib/format";
 import { Heart, Building, Maximize2, MapPin, Sparkles, ArrowLeft } from "lucide-react";
@@ -105,65 +106,11 @@ export default async function SavedPropertiesPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {savedProperties.map((property) => (
-                <div
+                <PropertyCard
                   key={property.id}
-                  className="group flex flex-col bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl relative"
-                >
-                  <div className="h-48 bg-zinc-100 dark:bg-zinc-800 relative overflow-hidden">
-                    {property.images && property.images[0] ? (
-                      <img
-                        src={property.images[0]}
-                        alt={property.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-zinc-400 text-sm">
-                        No Image
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10" />
-
-                    <div className="absolute top-3 left-3 z-20">
-                      <span className="bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
-                        <Building className="w-3 h-3" />
-                        {property.propertyType}
-                      </span>
-                    </div>
-
-                    <div className="absolute top-3 right-3 z-20">
-                      <FavoriteButton propertyId={property.id} initialIsFavorited={true} />
-                    </div>
-
-                    <div className="absolute bottom-3 left-3 right-3 z-20 flex justify-between items-end">
-                      <span className="text-white font-extrabold text-xl tracking-tight drop-shadow-md">
-                        {formatPrice(property.price)}
-                      </span>
-                      <span className="bg-black/50 backdrop-blur-md text-zinc-200 text-xs px-2.5 py-1 rounded-lg flex items-center gap-1 font-medium">
-                        <Maximize2 className="w-3 h-3 text-cyan-400" />
-                        {property.size} sqft
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-5 flex flex-col flex-1 justify-between">
-                    <div>
-                      <h3 className="font-bold text-lg mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
-                        {property.title}
-                      </h3>
-                      <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 flex items-center gap-1 mb-4 line-clamp-1">
-                        <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                        {property.address || "Location in Kota"}
-                      </p>
-                    </div>
-
-                    <Link
-                      href={`/properties/${property.id}`}
-                      className="w-full py-2 text-center rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-bold transition-colors"
-                    >
-                      View Property Details →
-                    </Link>
-                  </div>
-                </div>
+                  property={property}
+                  initialIsFavorited={true}
+                />
               ))}
             </div>
           )}

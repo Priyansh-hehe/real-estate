@@ -14,6 +14,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { prisma } from "@/lib/prisma";
 import AllPropertiesMapLoader from "@/components/AllPropertiesMapLoader";
+import PropertyCard from "@/components/PropertyCard";
 import { 
   LayoutGrid, 
   Map as MapIcon, 
@@ -216,66 +217,7 @@ export default async function AllPropertiesPage({
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {properties.map((property) => (
-                  <Link
-                    href={`/properties/${property.id}`}
-                    key={property.id}
-                    className="group flex flex-col bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1.5 cursor-pointer"
-                  >
-                    <div className="h-52 bg-zinc-200 dark:bg-zinc-800 w-full relative overflow-hidden flex items-center justify-center">
-                      {property.images && property.images[0] ? (
-                        <img
-                          src={property.images[0]}
-                          alt={property.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <span className="text-zinc-400 text-sm">No Image</span>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10" />
-
-                      <div className="absolute top-3 left-3 z-20 flex gap-2">
-                        <span className="bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md flex items-center gap-1">
-                          <Building className="w-3 h-3" />
-                          {property.propertyType}
-                        </span>
-                        {property.latitude && property.longitude && (
-                          <span className="bg-emerald-600/90 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
-                            📍 Map Pin
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="absolute bottom-3 left-3 right-3 z-20 flex justify-between items-end">
-                        <span className="text-white font-extrabold text-xl tracking-tight drop-shadow-md">
-                          {formatPrice(property.price)}
-                        </span>
-                        <span className="bg-black/50 backdrop-blur-md text-zinc-200 text-xs px-2.5 py-1 rounded-lg flex items-center gap-1 font-medium">
-                          <Maximize2 className="w-3 h-3 text-cyan-400" />
-                          {property.size} sqft
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-5 flex flex-col flex-1 justify-between">
-                      <div>
-                        <h3 className="font-bold text-lg mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
-                          {property.title}
-                        </h3>
-                        <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 flex items-center gap-1 mb-3 line-clamp-1">
-                          <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                          {property.address || "Location in Kota"}
-                        </p>
-                        <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-2 mb-4">
-                          {property.description}
-                        </p>
-                      </div>
-
-                      <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400">
-                        <span>View Details</span>
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                      </div>
-                    </div>
-                  </Link>
+                  <PropertyCard key={property.id} property={property} />
                 ))}
               </div>
             )}

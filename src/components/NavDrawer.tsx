@@ -292,7 +292,7 @@ export default function NavDrawer({ session }: NavDrawerProps) {
       <button
         onClick={toggleDrawer}
         aria-label="Open Navigation Menu"
-        className="p-2 rounded-xl text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0"
+        className="p-2 rounded-xl text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0 tap-feedback active:scale-90"
       >
         <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>

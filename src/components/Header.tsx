@@ -48,7 +48,7 @@ export default async function Header() {
         {/* All Properties Catalog Link */}
         <Link 
           href="/properties" 
-          className="text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:flex items-center gap-1.5"
+          className="text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:flex items-center gap-1.5 tap-feedback active:scale-95"
         >
           <Building2 className="w-4 h-4 text-zinc-400" />
           <span>Properties</span>
@@ -58,7 +58,7 @@ export default async function Header() {
         <Link
           href="/saved"
           aria-label="View Saved Properties"
-          className="p-2 rounded-full text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors flex items-center justify-center"
+          className="p-2 rounded-full text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors flex items-center justify-center tap-feedback active:scale-90"
           title="Saved Properties"
         >
           <Heart className="w-4 h-4" />
@@ -71,7 +71,7 @@ export default async function Header() {
             {(session.user?.role === "ADMIN" || session.user?.role === "AGENT") && (
               <Link 
                 href="/dashboard" 
-                className="text-xs sm:text-sm font-semibold hover:text-blue-600 transition-colors bg-zinc-100 dark:bg-zinc-900 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full border border-zinc-200 dark:border-zinc-800"
+                className="text-xs sm:text-sm font-semibold hover:text-blue-600 transition-colors bg-zinc-100 dark:bg-zinc-900 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full border border-zinc-200 dark:border-zinc-800 tap-feedback active:scale-95"
               >
                 Dashboard
               </Link>
@@ -81,7 +81,7 @@ export default async function Header() {
         ) : (
           <Link 
             href="/login" 
-            className="text-xs sm:text-sm font-semibold hover:opacity-90 transition-opacity bg-zinc-900 dark:bg-white dark:text-zinc-900 text-white px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-sm"
+            className="text-xs sm:text-sm font-semibold hover:opacity-90 transition-opacity bg-zinc-900 dark:bg-white dark:text-zinc-900 text-white px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-sm tap-feedback active:scale-95"
           >
             Sign In
           </Link>

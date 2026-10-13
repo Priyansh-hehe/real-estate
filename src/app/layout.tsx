@@ -12,12 +12,14 @@
  */
 
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 import FloatingContactWidget from "@/components/FloatingContactWidget";
+import NavigationProgressBar from "@/components/NavigationProgressBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +50,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 w-full max-w-full overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AuthProvider>
+            <Suspense fallback={null}>
+              <NavigationProgressBar />
+            </Suspense>
             <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>
             <Footer />
             <FloatingContactWidget />
